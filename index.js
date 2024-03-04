@@ -1,15 +1,13 @@
 // const express = require("express");
 // const app = express();
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
-
-
 
 // module.exports = app;
 const express = require('express')
 const app = express()
 const port = 3000
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
 app.use(express.json());
 require('dotenv').config();
 
@@ -31,7 +29,6 @@ const client = new MongoClient(url, {
     const fieldTeam = client.db("SAI_WEBSITE").collection("SAI_AGRO_FieldTeam");
     const manager = client.db("SAI_WEBSITE").collection("SAI_AGRO_Manager");
     const blogCollection = client.db("SAI_WEBSITE").collection("SAI_AGRO_blog");
-
 
     // get all team members
     app.get("/all-advisoryComittee",async(req,res)=>{
