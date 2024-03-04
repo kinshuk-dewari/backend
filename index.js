@@ -5,6 +5,14 @@
 // module.exports = app;
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
+// middleware 
+app.use(cors(
+  origin:["https://sai-backend-website.vercel.app"],
+  methods:["POST","GET"],
+  credentials:true
+));
 const port = 3000
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
