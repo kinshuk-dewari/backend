@@ -1,6 +1,6 @@
 { 
   "version": 2, 
-  "framework":"node",
+  "framework":node,
   "name":"SAI-dummy-backend",
   "builds":[{
     "src":"index.js",
