@@ -1,19 +1,15 @@
 // const express = require("express");
 // const app = express();
 
-// app.get("/", (req, res) => res.send("Express on Vercel"));
-// app.get("/all-advisoryComittee",(req,res)=>res.send("hjdftcghjdfgjdhghjgf"));
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
-// app.listen(3000, () => console.log("Server ready on port 3000."));
+
 
 // module.exports = app;
 const express = require('express')
 const app = express()
 const port = 3000
-const cors = require('cors')
 
-// middleware 
-app.use(cors());
 app.use(express.json());
 require('dotenv').config();
 
@@ -30,44 +26,12 @@ const client = new MongoClient(url, {
     deprecationErrors: true,
   }
 });
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    app.get("/", (req, res) => res.send("Express on Vercel"));
-
-    // DATABASES
-    const advisoryComittee = client.db("SAI_WEBSITE").collection("SAI_AGRO_AdvisoryCommittee");
+   const advisoryComittee = client.db("SAI_WEBSITE").collection("SAI_AGRO_AdvisoryCommittee");
     const boardsOfDirectors = client.db("SAI_WEBSITE").collection("SAI_AGRO_BoardsOfDirectors");
     const fieldTeam = client.db("SAI_WEBSITE").collection("SAI_AGRO_FieldTeam");
     const manager = client.db("SAI_WEBSITE").collection("SAI_AGRO_Manager");
     const blogCollection = client.db("SAI_WEBSITE").collection("SAI_AGRO_blog");
 
-
-    // insert team menber to the database: post method
-    app.post("/upload-advisoryComittee",async(req,res)=>{
-        const data = req.body;
-        const result = await teamCollection.insertOne(data);
-        res.send(result);
-    })
-    // insert partner to the database: post method
-    app.post("/upload-boardsOfDirectors",async(req,res)=>{
-        const data = req.body;
-        const result = await partnerCollection.insertOne(data);
-        res.send(result);
-    })
-    // insert replicator partner to the database: post method
-    app.post("/upload-fieldTeam",async(req,res)=>{
-        const data = req.body;
-        const result = await replicatorCollection.insertOne(data);
-        res.send(result);
-    })
-    // insert blog member to the database: post method
-    app.post("/upload-blog",async(req,res)=>{
-        const data = req.body;
-        const result = await blogCollection.insertOne(data);
-        res.send(result);
-    })
 
     // get all team members
     app.get("/all-advisoryComittee",async(req,res)=>{
@@ -133,18 +97,6 @@ async function run() {
       res.send(result);
     })
 
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    // await client.close();
-  }
-}
-run().catch(console.dir);
 
+app.listen(3000, () => console.log("Server ready on port 3000."));
 
-app.listen(port,()=>{
-    console.log("example is on port :"+port)
-})
- 
